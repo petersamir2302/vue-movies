@@ -1,11 +1,14 @@
 <template>
-  <div class="container pt-3">
+  <div class="container mt-3 p-3 card">
+    <div class="d-flex justify-content-between">
+      <h3>Movies List</h3>
+      <v-btn color="success" @click="addMovie">Add Movie</v-btn>
+    </div>
     <!-- Filter section -->
     <v-card>
       <v-card-title>
         <div class="d-flex justify-content-between">
           <span>Filter Movies</span>
-          <v-btn color="success" @click="addMovie">Add Movie</v-btn>
         </div>
       </v-card-title>
       <v-card-text class="pb-0">
@@ -25,9 +28,6 @@
           </div>
         </div>
       </v-card-text>
-      <v-card-actions class="justify-content-end">
-        <v-btn color="primary" @click="filterMovies">Filter</v-btn>
-      </v-card-actions>
     </v-card>
 
     <!-- Movie List Table -->

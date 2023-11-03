@@ -70,7 +70,7 @@
         </div>
         <div class="form-group mt-5 d-flex justify-content-end">
           <button type="submit" class="btn btn-primary mr-1 text-white">Save</button>
-          <button type="reset" class="btn btn-secondary text-white">Reset</button>
+          <button @click="goHome" type="button" class="btn btn-secondary text-white">Cancel</button>
         </div>
       </Form>
     </div>
@@ -146,6 +146,9 @@ export default {
     removeActor(index) {
       this.updatedMovie.actors.splice(index, 1);
     },
+    goHome() {
+      this.$router.push('/movies'); // Redirect to the movie list
+    }
   },
 };
 </script>
