@@ -2,7 +2,7 @@
   <div class="container">
 
     <div class="d-flex gap-3 align-items-center">
-      <v-icon small @click="goHome">mdi-arrow-left</v-icon>
+      <v-icon class="cursor-pointer" small @click="goHome()">mdi-arrow-left</v-icon>
       <h2 class="my-4">Movie Details</h2>
     </div>
     <div class="card">
@@ -40,12 +40,12 @@ export default {
       const movieId = this.$route.params.id;
       return this.$store.getters.getMovieById(movieId);
     },
+  },
     methods: {
       goHome() {
         this.$router.push('/movies'); // Redirect to the movie list
       }
     }
-  },
 };
 </script>
   
