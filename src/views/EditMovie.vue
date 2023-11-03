@@ -1,5 +1,5 @@
 <template>
-  <div class="card m-3">
+  <div class="card mt-3 px-0 container">
     <h5 class="card-header">Edit Movie</h5>
     <div class="card-body">
       <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors }">

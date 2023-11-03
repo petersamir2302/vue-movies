@@ -15,11 +15,11 @@
         <div class="row">
           <!-- Filter by Title -->
           <div class="col-lg-4">
-            <v-text-field v-model="filterTitle" label="Title"></v-text-field>
+            <v-text-field v-model="filterTitle" label="Title" variant="underlined"></v-text-field>
           </div>
           <div class="col-lg-4">
             <!-- Filter by Year -->
-            <v-text-field v-model="filterYear" label="Year" type="number"></v-text-field>
+            <v-text-field v-model="filterYear" label="Year" type="number" variant="underlined"></v-text-field>
           </div>
           <div class="col-lg-4">
             <!-- Filter by Number of Actors -->
@@ -32,14 +32,22 @@
 
     <!-- Movie List Table -->
     <v-data-table :headers="headers" :items="filteredMovies" hover>
-      <template v-slot:item="props">
-        <tr @click="viewMovie(props.item)" class="cursor-pointer">
-          <td>{{ props.item.title }}</td>
-          <td>{{ props.item.year }}</td>
-          <td>{{ props.item.actors.length }}</td>
+      <template v-slot:item="items">
+        <tr @click="viewMovie(items.item)" class="cursor-pointer">
+          <td>{{ items.item.title }}</td>
+          <td>{{ items.item.year }}</td>
+          <td>{{ items.item.actors.length }}</td>
           <td>
-            <v-icon small @click.stop.prevent="editMovie(props.item)">mdi-pencil</v-icon>
-            <v-icon small @click.stop.prevent="deleteMovie(props.item)">mdi-delete</v-icon>
+            <v-tooltip text="Edit" location="top">
+              <template v-slot:activator="{ props }">
+                <v-icon v-bind="props" small @click.stop="editMovie(items.item)">mdi-pencil</v-icon>
+              </template>
+            </v-tooltip>
+            <v-tooltip text="Delete" location="top">
+              <template v-slot:activator="{ props }">
+                <v-icon v-bind="props" small @click.stop="deleteMovie(items.item)">mdi-delete</v-icon>
+              </template>
+            </v-tooltip>
           </td>
         </tr>
       </template>
@@ -60,6 +68,7 @@ export default {
       filterTitle: '',
       filterYear: null,
       filterActors: null,
+      movieToDelete: null
     };
   },
   computed: {
@@ -68,10 +77,10 @@ export default {
     },
     headers() {
       return [
-        { text: 'Title', value: 'title' },
-        { text: 'Year', value: 'year' },
-        { text: 'Actors', value: 'actors' },
-        { text: 'Actions', value: 'actions', sortable: false }, // For edit/delete icons
+        { title: 'Title', key: 'title' },
+        { title: 'Year', key: 'year' },
+        { title: 'Actors', key: 'actors' },
+        { title: 'Actions', key: 'actions', sortable: false }, // For edit/delete icons
       ];
     },
     filteredMovies() {

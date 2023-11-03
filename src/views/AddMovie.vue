@@ -1,5 +1,5 @@
 <template>
-  <div class="card m-3">
+  <div class="card mt-3 px-0 container">
     <h5 class="card-header">Add Movie</h5>
     <div class="card-body">
       <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors }">
@@ -72,7 +72,7 @@
             </tbody>
           </table>
           <div class="d-flex justify-content-center">
-            <button @click="addActor" class="btn btn-primary">Add Actor</button>
+            <button type="button" @click="addActor" class="text-white btn btn-primary">Add Actor</button>
           </div>
         </div>
         <div class="form-group mt-5 d-flex justify-content-end">
@@ -94,6 +94,9 @@ export default {
     Field,
   },
   data() {
+    const storedMovie = localStorage.getItem('newMovie');
+    const initialMovie = storedMovie ? JSON.parse(storedMovie) : null;
+
     const schema = Yup.object().shape({
       title: Yup.string().required('Title is required'),
       year: Yup.string()
@@ -117,7 +120,7 @@ export default {
 
     return {
       schema,
-      newMovie: {
+      newMovie: initialMovie || {
         title: '',
         description: '',
         year: null,
@@ -135,6 +138,7 @@ export default {
   methods: {
     onSubmit(values) {
       // display form values on success
+      localStorage.removeItem('newMovie'); // Clear the stored data
       this.$store.dispatch('addMovie', this.newMovie);
       this.$router.push('/movies'); // Redirect to the movie list
     },
@@ -152,6 +156,15 @@ export default {
     goHome() {
       this.$router.push('/movies'); // Redirect to the movie list
     }
+  },
+  watch: {
+    newMovie: {
+      deep: true,
+      handler(newValue) {
+        // Store the data when it changes
+        localStorage.setItem('newMovie', JSON.stringify(newValue));
+      },
+    },
   },
 };
 </script>
