@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container py-5">
 
     <div class="d-flex gap-3 align-items-center">
       <v-icon class="cursor-pointer" small @click="goHome()">mdi-arrow-left</v-icon>
